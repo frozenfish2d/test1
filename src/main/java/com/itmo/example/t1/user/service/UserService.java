@@ -17,6 +17,9 @@ enum Errors {
     USERNAME_WRONG_FORMAT,
     PASSWORD_WRONG_FORMAT;
 
+
+
+
 }
 
 @Service
