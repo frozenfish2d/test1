@@ -8,6 +8,17 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+enum Errors {
+    ALREADY_EXIST,
+    SUCCESS,
+    BAD_LOGIN,
+    EMPTY_PASSWORD,
+    EMPTY_USERNAME,
+    USERNAME_WRONG_FORMAT,
+    PASSWORD_WRONG_FORMAT;
+
+}
+
 @Service
 public class UserService {
 
