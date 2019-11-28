@@ -2,6 +2,8 @@ package com.itmo.example.t1.user.service;
 
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class UserService {
     public static final int PASSWORD_WRONG_FORMAT = -5;
     private final Map<String, String> users = new HashMap<>();
 
-    public int addUser(String userName, String password) {
+    public int addUser(String userName, String password) throws NoSuchAlgorithmException {
         Pattern pattern;
         Matcher matcher;
         if (users.containsKey(userName)) {
@@ -64,8 +66,8 @@ public class UserService {
             return PASSWORD_WRONG_FORMAT;
         }
 
-
-
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.trim().getBytes());
 
         users.put(userName.trim(), password.trim());
 

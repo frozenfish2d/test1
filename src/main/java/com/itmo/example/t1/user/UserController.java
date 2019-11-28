@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
+
 @RestController
 public class UserController {
 
@@ -15,7 +17,7 @@ public class UserController {
 
     @GetMapping(value = "/register")
     public String register(@RequestHeader(value = "user_name") String userName,
-                           @RequestHeader(value = "password") String password) {
+                           @RequestHeader(value = "password") String password) throws NoSuchAlgorithmException {
         int result = userService.addUser(userName, password);
 
         switch (result) {
