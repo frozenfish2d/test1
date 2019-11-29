@@ -60,15 +60,6 @@ public class UserService {
         }
 
 
-//        pattern = Pattern.compile("^[a-zA-Z0-9]{6,20}$");
-//        //pattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9@#$%]).{6,20}");
-//        matcher = pattern.matcher(password);
-//        if (!matcher.matches()) {
-//            return PASSWORD_WRONG_FORMAT;
-//        }
-
-
-
         users.put(userName.trim(), returnMD5(password));
 
         return SUCCESS;
