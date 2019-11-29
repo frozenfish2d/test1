@@ -40,8 +40,8 @@ public class UserController {
 
     @GetMapping(value = "/login")
     public String login(@RequestHeader(value = "user_name") String userName,
-                        @RequestHeader(value = "password") String password) {
-        int result = userService.login(userName, password);
+                        @RequestHeader(value = "password") String password) throws NoSuchAlgorithmException {
+        int result = userService.login(userName, userService.returnMD5(password));
 
         switch (result) {
             case UserService.SUCCESS:

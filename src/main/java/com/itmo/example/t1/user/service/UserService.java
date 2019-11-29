@@ -2,6 +2,7 @@ package com.itmo.example.t1.user.service;
 
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -59,17 +60,16 @@ public class UserService {
         }
 
 
-        //pattern = Pattern.compile("^[a-zA-Z0-9]{6,20}$");
-        pattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9@#$%]).{6,20}");
-        matcher = pattern.matcher(password);
-        if (!matcher.matches()) {
-            return PASSWORD_WRONG_FORMAT;
-        }
+//        pattern = Pattern.compile("^[a-zA-Z0-9]{6,20}$");
+//        //pattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9@#$%]).{6,20}");
+//        matcher = pattern.matcher(password);
+//        if (!matcher.matches()) {
+//            return PASSWORD_WRONG_FORMAT;
+//        }
 
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(password.trim().getBytes());
 
-        users.put(userName.trim(), password.trim());
+
+        users.put(userName.trim(), returnMD5(password));
 
         return SUCCESS;
     }
@@ -80,6 +80,18 @@ public class UserService {
             return SUCCESS;
 
         return BAD_LOGIN;
+    }
+
+    public String returnMD5(String st) throws NoSuchAlgorithmException {
+        String salted = st+"kdfsgkldfsfdjsgl";
+        byte[] digest;
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.reset();
+        md.update(salted.getBytes());
+        digest = md.digest();
+        BigInteger bigInt = new BigInteger(1, digest);
+        System.out.println(bigInt.toString(16));
+        return bigInt.toString(16);
     }
 
 }
